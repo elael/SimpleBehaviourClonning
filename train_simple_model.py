@@ -11,7 +11,7 @@ import tensorflow as tf
 # Parameters
 simple_model_file = 'nvidia_model.h5'
 batch_size = 32
-epochs = 10
+epochs = 15
 
 # load samples
 train_samples, validation_samples = train_test_split(get_samples('../SimulatorData'), test_size=0.2)

@@ -78,7 +78,6 @@ weights_flag = 'imagenet' # 'imagenet' or None
 # Loads in InceptionV3
 from keras.applications.inception_v3 import InceptionV3
 
-tf.reset_default_graph()
 
 # Using Inception with ImageNet pre-trained weights
 # which will speed up training. Keras v2.0.9 supports down to 139x139x3
@@ -102,6 +101,7 @@ resized_input = Lambda(lambda image: tf.image.resize_images(
 
 # Feeds the re-sized input into Inception model
 # You will need to update the model name if you changed it earlier!
+tf.get_variable_scope().reuse_variables()
 inp = inception(resized_input)
 
 # Imports fully-connected "Dense" layers & Global Average Pooling
@@ -153,6 +153,7 @@ validation_generator = generator(validation_samples, batch_size=batch_size)
 from os.path import isfile
 if isfile('inception_retrained_model_v2.h5'):
     from keras.models import load_model
+    tf.reset_default_graph()
     model = load_model('inception_retrained_model_v2.h5', custom_objects={'tf':tf })
 
 model.fit_generator(train_generator,

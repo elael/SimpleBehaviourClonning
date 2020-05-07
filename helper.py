@@ -14,7 +14,9 @@ def get_samples(main_dir):
         with open(log_file) as csv_file:
             reader = csv.reader(csv_file)
             for line in reader:
-                if len(line) > 0:
+                if len(line) > 0 and line[0] != "center":
+                    for i in range(3):
+                        line[i] = '/'.join((*log_file.split('/')[:-1],*line[i].lstrip(' ').split('/')[-2:]))
                     samples.append(line)
     return samples
 
@@ -37,7 +39,7 @@ def sample_generator(samples, batch_size=32):
                 steering_center = float(batch_sample[3])
 
                 # create adjusted steering measurements for the side camera images
-                correction = 0.1  # this is a parameter to tune
+                correction = 0.2  # this is a parameter to tune
                 steering_left = steering_center + correction
                 steering_right = steering_center - correction
 
