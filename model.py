@@ -29,14 +29,13 @@ else:
 train_generator = sample_generator(train_samples, batch_size=batch_size)
 validation_generator = sample_generator(validation_samples, batch_size=batch_size)
 
-# from keras.optimizers import SGD
-# SGD(lr=0.0001, momentum=0.9)
+# compile and fit data
 model.compile(optimizer='adam', loss='mse')
-
 model.fit_generator(train_generator,
                     steps_per_epoch=ceil(len(train_samples) / batch_size),
                     validation_data=validation_generator,
                     validation_steps=ceil(len(validation_samples) / batch_size),
                     epochs=epochs, verbose=1)
 
+# save model
 model.save(simple_model_file)

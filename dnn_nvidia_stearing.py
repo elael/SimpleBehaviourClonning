@@ -11,7 +11,6 @@ def make_nvidia_model():
     model.add(Convolution2D(36, 5, 5, activation='relu'))
     model.add(MaxPooling2D())
     model.add(Convolution2D(48, 5, 5, activation='relu'))
-    # model.add(MaxPooling2D())
     model.add(Convolution2D(64, 3, 3, activation='relu'))
     model.add(Convolution2D(64, 3, 3, activation='relu'))
     model.add(Flatten())
